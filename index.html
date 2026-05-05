@@ -332,12 +332,52 @@
 
   /* RESPONSIVE */
   @media (max-width: 768px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    /* Nav */
+    nav { padding: 0 1.25rem; }
+    .nav-brand { font-size: 1rem; }
+    nav a.cta-btn { padding: 0.45rem 1rem; font-size: 0.8rem; }
+
+    /* Hero */
+    .hero { padding: 5rem 1.25rem 3rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
     .hero-card { order: -1; }
-    .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    .form-row { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr; }
+    .hero p { font-size: 0.95rem; }
+    .btn-primary, .btn-secondary { padding: 0.75rem 1.4rem; font-size: 0.875rem; width: 100%; text-align: center; }
+    .hero-actions { flex-direction: column; }
+
+    /* Sections */
+    .section { padding: 3.5rem 1.25rem; }
+
+    /* Mistakes */
+    .mistakes-grid { grid-template-columns: 1fr; }
+
+    /* Stats */
     .stats-grid { grid-template-columns: 1fr 1fr; }
+
+    /* Services */
+    .services-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    /* Why Me — stack to single column */
+    .why-section-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+    .why-grid { grid-template-columns: 1fr; }
+
+    /* Contact */
+    .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-section .section-title { font-size: 1.8rem; }
+
+    /* Footer */
+    footer { font-size: 0.75rem; padding: 1.25rem; }
+  }
+
+  @media (max-width: 480px) {
+    /* Extra small — phones */
+    .hero h1 { font-size: 2.1rem; }
+    .section-title { font-size: 1.6rem !important; }
+    .services-grid { grid-template-columns: 1fr; }
+    .trust-badges { flex-wrap: wrap; }
+    .hero-card { padding: 1.25rem; }
+    .stat-box .num { font-size: 1.1rem; }
   }
 </style>
 </head>
@@ -489,7 +529,7 @@
 <!-- WHY JM -->
 <section class="section" id="about">
   <div class="section-inner">
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items:center;">
+    <div class="why-section-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items:center;">
       <div>
         <p class="section-label">Why JM</p>
         <h2 class="section-title">I listen first.<br>Recommend second.</h2>
@@ -555,42 +595,43 @@
       <h2 class="section-title" style="color:var(--white);">Ready to take the<br>first step?</h2>
       <p class="section-sub" style="color: var(--gray-light); margin-bottom: 2rem;">It starts with one conversation. No commitment, no pressure — just a free, honest chat about your financial future.</p>
       <div class="contact-links">
-        <a href="https://m.me/yourpage" class="contact-link">
-          <span class="icon">💬</span>
-          <span>Message me on Facebook / Messenger</span>
+        <a href="https://www.facebook.com/JM.Migalbio" class="contact-link">
+          <span class="icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+            </svg>
+          </span>
+          <span>JM Migalbio</span>
         </a>
-        <a href="tel:+639XXXXXXXXX" class="contact-link">
+        <a href="tel:+639499521761" class="contact-link">
           <span class="icon">📞</span>
-          <span>Call or text: +63 9XX XXX XXXX</span>
+          <span>0949 952 1761</span>
         </a>
-        <a href="mailto:jm@example.com" class="contact-link">
+        <a href="mailto:fwdjanmarcomigalbio@gmail.com" class="contact-link">
           <span class="icon">✉️</span>
-          <span>jm@example.com</span>
+          <span>fwdjanmarcomigalbio@gmail.com</span>
         </a>
       </div>
     </div>
 
     <div>
-      <form class="contact-form" onsubmit="handleSubmit(event)">
+      <form class="contact-form" action="https://formspree.io/f/mojrdebg" method="POST">
         <div class="form-row">
-          <input type="text" placeholder="First name" required />
-          <input type="text" placeholder="Last name" required />
+          <input type="text" name="first_name" placeholder="First name" required />
+          <input type="text" name="last_name" placeholder="Last name" required />
         </div>
-        <input type="tel" placeholder="Mobile number (e.g. 0917 XXX XXXX)" required />
-        <input type="email" placeholder="Email address" required />
-        <select required>
+        <input type="tel" name="mobile" placeholder="Mobile number (e.g. 0917 XXX XXXX)" required />
+        <input type="email" name="email" placeholder="Email address" required />
+        <select name="interest" required>
           <option value="" disabled selected>What are you interested in?</option>
           <option>Life Insurance</option>
           <option>Critical Illness Coverage</option>
           <option>Health / Hospitalization</option>
-          <option>Savings & Investment Plan</option>
+          <option>Savings &amp; Investment Plan</option>
           <option>I'm not sure yet — help me figure it out</option>
         </select>
-        <textarea placeholder="Tell me a little about yourself — your age, family situation, any concerns (optional)"></textarea>
+        <textarea name="message" placeholder="Tell me a little about yourself — your age, family situation, any concerns (optional)"></textarea>
         <button type="submit" class="submit-btn">Send Inquiry →</button>
-        <div class="success-msg" id="successMsg">
-          ✓ Message received! I'll get back to you within 24 hours.
-        </div>
       </form>
     </div>
   </div>
@@ -598,28 +639,11 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 <span>JM Migalbio</span> · Licensed Financial Wealth Planner · FWD Life Philippines · Dasmariñas, Cavite</p>
+  <p>© 2026 <span>JM Migalbio</span> · Licensed Financial Wealth Planner · FWD Life Philippines · Dasmariñas, Cavite</p>
   <p style="margin-top:4px;">This page is for inquiry purposes. Insurance products are underwritten by FWD Life Insurance Corporation.</p>
 </footer>
 
 <script>
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.submit-btn');
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-    setTimeout(() => {
-      e.target.reset();
-      btn.textContent = 'Send Inquiry →';
-      btn.disabled = false;
-      document.getElementById('successMsg').style.display = 'block';
-      setTimeout(() => {
-        document.getElementById('successMsg').style.display = 'none';
-      }, 5000);
-    }, 1000);
-  }
-
-  // Smooth nav scroll with offset
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
       const target = document.querySelector(link.getAttribute('href'));
