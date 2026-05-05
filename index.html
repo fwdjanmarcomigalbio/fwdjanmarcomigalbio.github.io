@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JM Migalbio | Licensed Financial Wealth Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #E87722;
+    --orange-dark: #c45e0a;
+    --orange-light: #fff3ea;
+    --orange-mid: #f5a05a;
+    --black: #111110;
+    --gray-dark: #2C2C2A;
+    --gray-mid: #5F5E5A;
+    --gray-light: #B4B2A9;
+    --gray-bg: #F7F5F2;
+    --white: #FFFFFF;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #eee;
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-brand {
+    font-weight: 800; font-size: 1.1rem; color: var(--black);
+    text-decoration: none; letter-spacing: -0.02em;
+  }
+  .nav-brand span { color: var(--orange); }
+  nav a.cta-btn {
+    background: var(--orange); color: var(--white);
+    padding: 0.5rem 1.25rem; border-radius: 999px;
+    font-weight: 600; font-size: 0.875rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  nav a.cta-btn:hover { background: var(--orange-dark); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 6rem 2rem 4rem;
+    background: var(--white);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,119,34,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--orange-light); color: var(--orange-dark);
+    padding: 0.3rem 0.9rem; border-radius: 999px;
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .hero-badge::before {
+    content: ''; display: block;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--orange);
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    line-height: 1.08; letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--orange);
+  }
+  .hero p {
+    font-size: 1.05rem; color: var(--gray-mid);
+    max-width: 480px; margin-bottom: 2rem; line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--orange); color: var(--white);
+    padding: 0.875rem 1.75rem; border-radius: 999px;
+    font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--black);
+    padding: 0.875rem 1.75rem; border-radius: 999px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; display: inline-block;
+    border: 1.5px solid #ddd;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-1px); }
+
+  /* HERO CARD */
+  .hero-card {
+    background: var(--white);
+    border: 1px solid #eeece8;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.07);
+  }
+  .hero-profile {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--orange); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .profile-info h3 { font-weight: 700; font-size: 1rem; }
+  .profile-info p { font-size: 0.8rem; color: var(--gray-mid); }
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-box {
+    background: var(--gray-bg); border-radius: var(--radius-sm);
+    padding: 0.875rem 1rem;
+  }
+  .stat-box .num { font-size: 1.4rem; font-weight: 800; color: var(--orange); }
+  .stat-box .label { font-size: 0.75rem; color: var(--gray-mid); margin-top: 2px; }
+  .trust-badges {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding-top: 1rem; border-top: 1px solid #eee;
+  }
+  .badge-pill {
+    background: var(--orange-light); color: var(--orange-dark);
+    font-size: 0.72rem; font-weight: 600;
+    padding: 0.25rem 0.7rem; border-radius: 999px;
+  }
+
+  /* PROBLEM SECTION */
+  .section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--orange);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.12; letter-spacing: -0.02em;
+    margin-bottom: 1rem; color: var(--black);
+  }
+  .section-sub { font-size: 1rem; color: var(--gray-mid); max-width: 540px; line-height: 1.7; }
+
+  /* MISTAKES */
+  .mistakes { background: var(--gray-bg); }
+  .mistakes-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem; margin-top: 2.5rem;
+  }
+  .mistake-card {
+    background: var(--white); border-radius: var(--radius);
+    padding: 1.5rem; border: 1px solid #eee;
+  }
+  .mistake-num {
+    font-size: 2rem; font-weight: 800; color: #eeece8;
+    font-family: 'DM Serif Display', serif;
+    margin-bottom: 0.5rem;
+  }
+  .mistake-card h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .mistake-card p { font-size: 0.875rem; color: var(--gray-mid); line-height: 1.6; }
+
+  /* HOW IT WORKS */
+  .steps { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+  .step {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    background: var(--white); border: 1px solid #eee;
+    border-radius: var(--radius); padding: 1.5rem;
+  }
+  .step-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--orange); color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.95rem; flex-shrink: 0;
+  }
+  .step h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.35rem; }
+  .step p { font-size: 0.875rem; color: var(--gray-mid); line-height: 1.6; }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem; margin-top: 2.5rem;
+  }
+  .service-card {
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    border: 1px solid #eee;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover { border-color: var(--orange-mid); box-shadow: 0 4px 20px rgba(232,119,34,0.08); }
+  .service-icon {
+    width: 40px; height: 40px; border-radius: var(--radius-sm);
+    background: var(--orange-light); color: var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; margin-bottom: 0.9rem;
+  }
+  .service-card h4 { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .service-card p { font-size: 0.82rem; color: var(--gray-mid); line-height: 1.6; }
+
+  /* WHY ME */
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem;
+  }
+  .why-item {
+    padding: 1.25rem; border-radius: var(--radius-sm);
+    background: var(--gray-bg);
+    display: flex; gap: 0.9rem; align-items: flex-start;
+  }
+  .why-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--orange); flex-shrink: 0; margin-top: 6px;
+  }
+  .why-item strong { display: block; font-size: 0.875rem; font-weight: 700; margin-bottom: 2px; }
+  .why-item span { font-size: 0.8rem; color: var(--gray-mid); }
+
+  /* CONTACT */
+  .contact-section { background: var(--black); color: var(--white); }
+  .contact-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .contact-section .section-label { color: var(--orange-mid); }
+  .contact-section .section-title { color: var(--white); }
+  .contact-section .section-sub { color: var(--gray-light); }
+  .contact-form { display: flex; flex-direction: column; gap: 0.875rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; }
+  input, select, textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white);
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
+  input:focus, select:focus, textarea:focus { border-color: var(--orange); }
+  select option { background: var(--gray-dark); color: var(--white); }
+  textarea { resize: vertical; min-height: 100px; }
+  .submit-btn {
+    background: var(--orange); color: var(--white);
+    padding: 0.9rem 2rem; border-radius: 999px;
+    font-weight: 700; font-size: 0.95rem;
+    border: none; cursor: pointer;
+    transition: background 0.2s;
+    text-align: center;
+    width: 100%;
+  }
+  .submit-btn:hover { background: var(--orange-dark); }
+
+  /* CONTACT LINKS */
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.75rem;
+    text-decoration: none; color: var(--white);
+    font-size: 0.9rem;
+  }
+  .contact-link .icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0;
+  }
+  .contact-link:hover .icon { background: var(--orange); border-color: var(--orange); }
+
+  /* FOOTER */
+  footer {
+    background: #0a0a09; color: rgba(255,255,255,0.4);
+    text-align: center; padding: 1.5rem 2rem;
+    font-size: 0.8rem;
+  }
+  footer span { color: var(--orange); }
+
+  /* SUCCESS MESSAGE */
+  .success-msg {
+    display: none;
+    background: rgba(232,119,34,0.12); border: 1px solid var(--orange-mid);
+    color: var(--orange-mid); border-radius: var(--radius-sm);
+    padding: 0.9rem 1rem; font-size: 0.875rem; font-weight: 600;
+    text-align: center;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-text > * { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+  .hero-text > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-text > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-text > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-text > *:nth-child(4) { animation-delay: 0.45s; }
+  .hero-card { animation: fadeUp 0.6s ease 0.3s forwards; opacity: 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-card { order: -1; }
+    .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">JM<span>.</span>Migalbio</a>
+  <a href="#contact" class="cta-btn">Book a Free Call</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-badge">Licensed Financial Wealth Planner · FWD Philippines</span>
+      <h1>Protect what <em>matters most</em> to you.</h1>
+      <p>I help Filipinos find the right financial protection — without the jargon, without the pressure. Just honest advice that fits your life and your budget.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get a Free Consultation</a>
+        <a href="#how" class="btn-secondary">How it works</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-profile">
+        <div class="avatar">JM</div>
+        <div class="profile-info">
+          <h3>JM Migalbio</h3>
+          <p>Licensed Financial Wealth Planner · Dasmariñas, Cavite</p>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="num">FWD</div>
+          <div class="label">Accredited agent</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">Free</div>
+          <div class="label">Consultation call</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">No</div>
+          <div class="label">Pressure or jargon</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">You</div>
+          <div class="label">Always the priority</div>
+        </div>
+      </div>
+      <div class="trust-badges">
+        <span class="badge-pill">Life Insurance</span>
+        <span class="badge-pill">Critical Illness</span>
+        <span class="badge-pill">Health</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section mistakes" id="problem">
+  <div class="section-inner">
+    <p class="section-label">The Problem</p>
+    <h2 class="section-title">Why most Filipinos end up with<br>the <em style="font-style:italic; color:var(--orange);">wrong</em> plan</h2>
+    <p class="section-sub">It's not your fault. The insurance industry has always made things complicated. Here's what usually happens:</p>
+    <div class="mistakes-grid">
+      <div class="mistake-card">
+        <div class="mistake-num">01</div>
+        <h4>They collect random quotations</h4>
+        <p>Multiple agents, multiple PDFs — with no clear way to compare which plan actually fits your real situation.</p>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-num">02</div>
+        <h4>They pick what seems cheapest</h4>
+        <p>Without understanding what's inside the plan or whether it truly covers what matters most to them and their family.</p>
+      </div>
+      <div class="mistake-card">
+        <div class="mistake-num">03</div>
+        <h4>They realize too late</h4>
+        <p>Years of premiums paid — and when it matters most, the coverage they thought they had simply wasn't there.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="section-inner">
+    <p class="section-label">How It Works</p>
+    <h2 class="section-title">Simple, clear, and built<br>around <em style="font-style:italic; color:var(--orange);">you</em></h2>
+    <p class="section-sub">No confusing forms. No pressure. Just a straightforward process that gets you the right coverage.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">1</div>
+        <div>
+          <h4>Send me a message or inquiry</h4>
+          <p>Fill out the quick form below or reach out via Facebook/Messenger. Tell me a little about yourself — your age, family situation, and what concerns you most.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon">2</div>
+        <div>
+          <h4>Free 1-on-1 Clarity Call</h4>
+          <p>We'll have a friendly conversation — no jargon, no pressure. I'll ask the right questions so I fully understand your needs before recommending anything.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon">3</div>
+        <div>
+          <h4>Get your personalized plan</h4>
+          <p>You'll receive a clear, tailored recommendation that fits your life and budget — explained in plain language you can actually understand.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services" style="background: var(--gray-bg);">
+  <div class="section-inner">
+    <p class="section-label">What I Help With</p>
+    <h2 class="section-title">Coverage for every<br>stage of your life</h2>
+    <p class="section-sub">Through FWD Philippines, I help you find the right financial protection — whatever your stage in life.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h4>Life Insurance</h4>
+        <p>Make sure your family is taken care of, no matter what happens. Peace of mind starts here.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">❤️</div>
+        <h4>Critical Illness</h4>
+        <p>A serious illness shouldn't wipe out your savings. Get covered for conditions like cancer, heart attack, and stroke.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏥</div>
+        <h4>Health & Hospital</h4>
+        <p>Cover hospitalization costs and medical expenses without draining your emergency fund.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <h4>Savings & Investment</h4>
+        <p>Build wealth while protecting what you already have. Plans that grow with your goals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY JM -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items:center;">
+      <div>
+        <p class="section-label">Why JM</p>
+        <h2 class="section-title">I listen first.<br>Recommend second.</h2>
+        <p class="section-sub" style="margin-bottom: 1.5rem;">I'm JM Migalbio — a Licensed Financial Wealth Planner based in Dasmariñas, Cavite. I became a financial planner because I believe every Filipino deserves honest, clear guidance about their money and their future.</p>
+        <p class="section-sub">My background in IT means I'm detail-oriented and analytical — I'll study your situation thoroughly before suggesting anything.</p>
+        <div style="margin-top: 1.5rem;">
+          <a href="#contact" class="btn-primary">Talk to JM — It's Free</a>
+        </div>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <div>
+            <strong>No hard-selling</strong>
+            <span>I won't push you into anything. You decide, always.</span>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <div>
+            <strong>Plain language</strong>
+            <span>No confusing insurance jargon — just clear, simple explanations.</span>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <div>
+            <strong>Licensed & accredited</strong>
+            <span>Properly licensed and backed by FWD Philippines.</span>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <div>
+            <strong>Based in Cavite</strong>
+            <span>Serving Dasmariñas and nearby areas — face-to-face or online.</span>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <div>
+            <strong>Free consultation</strong>
+            <span>Zero cost to find out what plan is right for you.</span>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-dot"></div>
+          <div>
+            <strong>Here for the long-term</strong>
+            <span>I'm your planner — not just someone who closes a sale.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title" style="color:var(--white);">Ready to take the<br>first step?</h2>
+      <p class="section-sub" style="color: var(--gray-light); margin-bottom: 2rem;">It starts with one conversation. No commitment, no pressure — just a free, honest chat about your financial future.</p>
+      <div class="contact-links">
+        <a href="https://m.me/yourpage" class="contact-link">
+          <span class="icon">💬</span>
+          <span>Message me on Facebook / Messenger</span>
+        </a>
+        <a href="tel:+639XXXXXXXXX" class="contact-link">
+          <span class="icon">📞</span>
+          <span>Call or text: +63 9XX XXX XXXX</span>
+        </a>
+        <a href="mailto:jm@example.com" class="contact-link">
+          <span class="icon">✉️</span>
+          <span>jm@example.com</span>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <input type="text" placeholder="First name" required />
+          <input type="text" placeholder="Last name" required />
+        </div>
+        <input type="tel" placeholder="Mobile number (e.g. 0917 XXX XXXX)" required />
+        <input type="email" placeholder="Email address" required />
+        <select required>
+          <option value="" disabled selected>What are you interested in?</option>
+          <option>Life Insurance</option>
+          <option>Critical Illness Coverage</option>
+          <option>Health / Hospitalization</option>
+          <option>Savings & Investment Plan</option>
+          <option>I'm not sure yet — help me figure it out</option>
+        </select>
+        <textarea placeholder="Tell me a little about yourself — your age, family situation, any concerns (optional)"></textarea>
+        <button type="submit" class="submit-btn">Send Inquiry →</button>
+        <div class="success-msg" id="successMsg">
+          ✓ Message received! I'll get back to you within 24 hours.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>JM Migalbio</span> · Licensed Financial Wealth Planner · FWD Life Philippines · Dasmariñas, Cavite</p>
+  <p style="margin-top:4px;">This page is for inquiry purposes. Insurance products are underwritten by FWD Life Insurance Corporation.</p>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.submit-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+      e.target.reset();
+      btn.textContent = 'Send Inquiry →';
+      btn.disabled = false;
+      document.getElementById('successMsg').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('successMsg').style.display = 'none';
+      }, 5000);
+    }, 1000);
+  }
+
+  // Smooth nav scroll with offset
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
